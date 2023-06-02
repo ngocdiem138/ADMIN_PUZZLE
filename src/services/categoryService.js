@@ -1,19 +1,25 @@
 import api from "../constants/api";
 
+const token = localStorage.getItem('login');
+
 const categoryService = {
-    getCategory(){
-        return api.get('/admin/category')
+    getAllCategory() {
+        return api.get('api/admin/get-all-category', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
     },
-    getCategoryById(data){
+    getCategoryById(data) {
         return api.get(`/admin/category/${data}`)
     },
-    addCategory(data){
+    addCategory(data) {
         return api.post('admin/category/add', data)
     },
-    updateCategory(data){
+    updateCategory(data) {
         return api.post('admin/category/update', data)
     },
-    deleteCategory(data){
+    deleteCategory(data) {
         return api.delete('admin/category/update', data)
     }
 }

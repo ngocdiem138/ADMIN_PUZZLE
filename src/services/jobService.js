@@ -1,13 +1,11 @@
 import api from '../constants/api'
 
 
-const token = localStorage.getItem('login')
+const token = localStorage.getItem('login');
 
 const jobService = {
     
     getAllJob(){
-        if(!token)
-            return null
         return api.get('api/admin/get-all-job-post',
         {
         headers: {

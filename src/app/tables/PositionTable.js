@@ -96,21 +96,18 @@ const PositionTable = () => {
             </td>
             <td style={{ "width": "15%" }}>
                 <a href={'/extraInfos/' + position.id} class="table-link">
-                    <span class="fa-stack">
-                        <i class="fa fa-square fa-stack-2x"></i>
-                        <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                    <span class="menu-icon" style={{ 'fontSize': '2.0rem' }}>
+                        <i className="mdi mdi-crosshairs"></i>
                     </span>
                 </a>
                 <a href={'/extraInfos/' + position.id} class="table-link">
-                    <span class="fa-stack">
-                        <i class="fa fa-square fa-stack-2x"></i>
-                        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                    <span class="menu-icon" style={{ 'fontSize': '2.0rem' }}>
+                        <i className="mdi mdi-pencil-circle-outline"></i>
                     </span>
                 </a>
                 <a onClick={() => handleDelete(position.id)} class="table-link danger">
-                    <span class="fa-stack">
-                        <i class="fa fa-square fa-stack-2x"></i>
-                        <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                    <span class="menu-icon" style={{ 'fontSize': '2.0rem' }}>
+                        <i className="mdi mdi-delete-circle-outline"></i>
                     </span>
                 </a>
             </td>

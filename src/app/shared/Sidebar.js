@@ -1,12 +1,12 @@
 import React, { Component, useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Collapse, Dropdown } from 'react-bootstrap';
+import { Button, Collapse, Dropdown } from 'react-bootstrap';
 import { Trans } from 'react-i18next';
 import imageFace1 from "../../assets/images/faces/face1.jpg";
 import imageLogo from '../../assets/images/logo-main.png';
 import accountService from "../../services/accountService";
 import { useToasts } from 'react-toast-notifications';
-import authService from '../../services/authService';
+import ImageNoAvatar from '../../assets/images/faces/noface.png';
 const Sidebar = () => {
   const [profileData, setProfileData] = useState({});
   const { addToast } = useToasts();
@@ -40,6 +40,7 @@ const Sidebar = () => {
     userPagesMenuOpen: false,
     companyPagesMenuOpen: false,
     extraInfoPagesMenuOpen: false,
+    blogPagesMenuOpen: false,
     errorPagesMenuOpen: false,
   })
 
@@ -57,6 +58,7 @@ const Sidebar = () => {
         userPagesMenuOpen: false,
         companyPagesMenuOpen: false,
         extraInfoPagesMenuOpen: false,
+        blogPagesMenuOpen: false,
         errorPagesMenuOpen: false,
       })
       setDropdownState((dropdownState) => ({ ...dropdownState, ...updatedValue }))
@@ -72,6 +74,7 @@ const Sidebar = () => {
   const isPathActive = (path) => {
     return location.pathname.startsWith(path);
   }
+
 
   useEffect(() => {
     onRouteChanged();
@@ -101,7 +104,7 @@ const Sidebar = () => {
           <div className="profile-desc">
             <div className="profile-pic">
               <div className="count-indicator">
-                <img className="img-xs rounded-circle " src={profileData.avatar} alt="profile" />
+                <img className="img-xs rounded-circle " src={profileData.avatar ? profileData.avatar : ImageNoAvatar} alt="profile" />
                 <span className="count bg-success"></span>
               </div>
               <div className="profile-name">
@@ -157,6 +160,12 @@ const Sidebar = () => {
           <Link className="nav-link" to="/dashboard">
             <span className="menu-icon"><i className="mdi mdi-speedometer"></i></span>
             <span className="menu-title"><Trans>Dashboard</Trans></span>
+          </Link>
+        </li>
+        <li className={isPathActive('/jobs') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+          <Link className="nav-link" to="/jobs/job-table">
+            <span className="menu-icon"><i className="mdi mdi-briefcase-outline"></i></span>
+            <span className="menu-title"><Trans>Job</Trans></span>
           </Link>
         </li>
         <li className={isPathActive('/users') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
@@ -253,11 +262,38 @@ const Sidebar = () => {
             </div>
           </Collapse>
         </li>
-        <li className={isPathActive('/blogs/blog-tables') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
-          <Link className="nav-link" to="/blogs/blog-tables">
-            <span className="menu-icon"><i className="mdi mdi-post-outline"></i></span>
-            <span className="menu-title"><Trans>Blog</Trans></span>
-          </Link>
+        <li className={isPathActive('/blogs') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+          <div className={dropdownState.blogPagesMenuOpen ? 'nav-link menu-expanded' : 'nav-link'} onClick={() => toggleMenuState('blogPagesMenuOpen')} data-toggle="collapse">
+            <span className="menu-icon">
+              <i className="mdi mdi-post-outline"></i>
+            </span>
+            <span className="menu-title"><Trans>Blogs</Trans></span>
+            <i className="menu-arrow"></i>
+          </div>
+          <Collapse in={dropdownState.blogPagesMenuOpen}>
+            <div>
+              <ul className="nav flex-column sub-menu">
+                <li className="nav-item">
+                  <Link className={isPathActive('/blogs/dashboard') ? 'nav-link active' : 'nav-link'} to="/blogs/dashboard">
+                    <span className="menu-icon"><i className="mdi mdi-tablet-dashboard"></i></span>
+                    <span className="menu-title"><Trans>Blog Dashboard</Trans></span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={isPathActive('/blogs/new') ? 'nav-link active' : 'nav-link'} to="/blogs/new">
+                    <span className="menu-icon"><i className="mdi mdi-view-grid-plus"></i></span>
+                    <span className="menu-title"><Trans>Add new post</Trans></span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={isPathActive('/blogs/categories') ? 'nav-link active' : 'nav-link'} to="/blogs/categories">
+                    <span className="menu-icon"><i className="mdi mdi-content-duplicate"></i></span>
+                    <span className="menu-title"><Trans>Categories</Trans></span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </Collapse>
         </li>
         <li className={isPathActive('/profile') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
           <Link className="nav-link" to="/profile">
@@ -267,7 +303,7 @@ const Sidebar = () => {
         </li>
 
 
-        <li className={isPathActive('/basic-ui') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+        {/* <li className={isPathActive('/basic-ui') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
           <div className={dropdownState.basicUiMenuOpen ? 'nav-link menu-expanded' : 'nav-link'} onClick={() => toggleMenuState('basicUiMenuOpen')} data-toggle="collapse">
             <span className="menu-icon">
               <i className="mdi mdi-laptop"></i>
@@ -365,11 +401,11 @@ const Sidebar = () => {
               </ul>
             </div>
           </Collapse>
-        </li>
+        </li> */}
         <li className="nav-item nav-category">
           <span className="nav-link"><Trans>More</Trans></span>
         </li>
-        <li className={isPathActive('/error-pages') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
+        {/* <li className={isPathActive('/error-pages') ? 'nav-item menu-items active' : 'nav-item menu-items'}>
           <div className={dropdownState.errorPagesMenuOpen ? 'nav-link menu-expanded' : 'nav-link'} onClick={() => toggleMenuState('errorPagesMenuOpen')} data-toggle="collapse">
             <span className="menu-icon">
               <i className="mdi mdi-lock"></i>
@@ -385,13 +421,13 @@ const Sidebar = () => {
               </ul>
             </div>
           </Collapse>
-        </li>
+        </li> */}
         <li className="nav-item menu-items">
           <a className="nav-link" href="http://bootstrapdash.com/demo/corona-react-free/documentation/documentation.html" rel="noopener noreferrer" target="_blank">
             <span className="menu-icon">
               <i className="mdi mdi-file-document-box"></i>
             </span>
-            <span className="menu-title"><Trans>Documentation</Trans></span>
+            <span className="menu-title"><Trans><Button onClick={onLogout}> Log Out </Button></Trans></span>
           </a>
         </li>
       </ul>

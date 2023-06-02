@@ -13,10 +13,12 @@ const BasicElements = lazy(() => import('./form-elements/BasicElements'));
 
 const BasicTable = lazy(() => import('./tables/BasicTable'));
 const UserTable = lazy(() => import('./tables/UserTable'));
+const JobTable = lazy(() => import('./tables/JobTable'));
 const CompanyTable = lazy(() => import('./tables/CompanyTable'));
 const PositionTable = lazy(() => import('./tables/PositionTable'));
 const SkillTable = lazy(() => import('./tables/SkillTable'));
 const ServiceTable = lazy(() => import('./tables/ServiceTable'));
+const CategoryTable = lazy(() => import('./tables/CategoryTable'));
 
 const Mdi = lazy(() => import('./icons/Mdi'));
 
@@ -37,7 +39,7 @@ const NewCompanyProfile = lazy(() => import('./company-pages/NewCompanyProfile')
 const ExtraInfoProfile = lazy(() => import('./extrainfo-pages/ExtraInfoProfile'));
 const NewExtraInfoProfile = lazy(() => import('./extrainfo-pages/NewExtraInfoProfile'));
 const NewBlogProfile= lazy(() => import('./blog-pages/NewBlogProfile'));
-
+const BlogDashboard = lazy(() => import('./blog-pages/BlogDashboard'));
 class AppRoutes extends Component {
   render () {
     return (
@@ -53,17 +55,20 @@ class AppRoutes extends Component {
 
           <Route path="/tables/basic-table" component={ BasicTable } />
           <Route path="/users/user-table" component={ UserTable } />
+          <Route path="/jobs/job-table" component={ JobTable } />
           <Route path="/companys/company-table" component={ CompanyTable } />
           <Route path="/icons/mdi" component={ Mdi } />
           <Route path="/extraInfos/position-table" component={ PositionTable } />
           <Route path="/extraInfos/skill-table" component={ SkillTable } />
           <Route path="/extraInfos/service-table" component={ ServiceTable } />
+          <Route path="/blogs/categories" component={ CategoryTable } />
           <Route path="/charts/chart-js" component={ ChartJs } />
 
 
           <Route path="/login" component={ Login } />
           <Route path="/profile" component={ Profile } />
           <Route path="/blogs/new" component={ NewBlogProfile } />
+          <Route path="/blogs/dashboard" component={ BlogDashboard } />
           <Route path="/users/new" component={ NewUserProfile } />
           <Route path="/users/:id" component={ UserProfile } />
           <Route path="/companys/new" component={ NewCompanyProfile } />

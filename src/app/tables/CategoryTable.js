@@ -1,30 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Form } from 'react-bootstrap';
-import imageLogo from '../../assets/images/logo-main.png';
-import authService from '../../services/authService';
-import CardProfile from '../../components/Image';
-import accountService from '../../services/accountService';
-import Select from 'react-select';
-import { useToasts } from 'react-toast-notifications';
+import { Link, NavLink } from 'react-router-dom';
 import ToggleButton from '../../components/ToggleButton';
-import ImageNoAvatar from '../../assets/images/faces/noface.png';
 import Paginate from '../../helpers/Paginate';
-import userService from '../../services/userService';
-import companyService from '../../services/companyService';
+import categoryService from '../../services/categoryService';
 
-const CompanyTable = () => {
-    const { addToast } = useToasts();
-    const options = [
-        { value: 'user', label: 'USER' },
-        { value: 'candidate', label: 'CANDIDATE' },
-        { value: 'employer', label: 'EMPLOYER' },
-        { value: 'admin', label: 'ADMIN' },
-    ];
-    const [error, setError] = useState("");
-    const [selectedOption, setSelectedOption] = useState([]);
-    const [profileData, setProfileData] = useState({});
-    const [listCompany, setListCompany] = useState([]);
+const CategoryTable = () => {
+    const [listCategory, setListCategory] = useState([]);
     const [listResult, setListResult] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(7);
@@ -33,10 +14,10 @@ const CompanyTable = () => {
     const currentPosts = listResult.slice(indexOfFirstPost, indexOfLastPost);
 
     useEffect(() => {
-        companyService.getAllCompany().then(response => {
+        categoryService.getAllCategory().then(response => {
             if (response.data.errCode == "403") {
             } else {
-                setListCompany(response.data.data);
+                setListCategory(response.data.data);
                 setListResult(response.data.data);
             }
         }
@@ -63,24 +44,27 @@ const CompanyTable = () => {
     const handleDelete = (id) => {
         console.log(id)
         const confirmBox = window.confirm(
-            "Do you really want to delete this Company?"
+            "Do you really want to delete this Category?"
         )
         if (confirmBox === true) {
-            userService.deleteCompany(id)
-            setListCompany(listCompany.filter((item) => item.id !== id));
+            extraInfoService.deleteExtraInfo(id);
+            setListCategory(listCategory.filter((item) => item.id !== id));
             setListResult(listResult.filter((item) => item.id !== id));
         }
     };
 
     const handleActive = (id) => {
         const confirmBox = window.confirm(
-            "Do you really want to active this User?"
+            "Do you really want to active this Category?"
         )
         if (confirmBox === true) {
-            userService.activeUser(id);
+            extraInfoService.activeExtraInfo(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listCompany[upd_obj].active = true;
+            listCategory[upd_obj].active = true;
             listResult[upd_obj].active = true;
+            return true;
+        } else {
+            return false;
         }
     };
 
@@ -89,47 +73,39 @@ const CompanyTable = () => {
             "Do you really want to inactive this User?"
         )
         if (confirmBox === true) {
-            userService.activeUser(id);
+            extraInfoService.inActiveExtraInfo(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listCompany[upd_obj].active = false;
+            listCategory[upd_obj].active = false;
             listResult[upd_obj].active = false;
+            return true;
+        } else {
+            return false;
         }
     };
 
-    const CompanyTableContent = currentPosts.map(company => {
+    const CategoryTableContent = currentPosts.map(category => {
         return <tr>
             <td>
-                <img src={company.image ? company.image : ImageNoAvatar} alt="" style={{ borderRadius: '0%' }} />
-                <Link to={'/companys/' + company.id} class="user-link" style={{ paddingLeft: '4%' }}>{company.name ? company.name : "Name haven't updated"}</Link>
+                <Link to={'/blogs/categories/' + category.id} class="user-link" style={{ paddingLeft: '4%' }}>{category.id ? category.id : "ID haven't updated"}</Link>
             </td>
             <td>
-                {company.website}
-            </td>
-            <td className='text-center'>
-                {company.createdEmployerId ?
-                    <Link to={'/users/' + company.createdEmployerId}>
-                        <span class="fa-stack">
-                            <i class="fa fa-square fa-stack-2x"></i>
-                            <i class="fa fa-id-badge fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </Link>
-                    : ''}
+                {category.name}
             </td>
             <td class="text-center">
-                <ToggleButton onChange={state => state ? handleActive(company.id) : handleInActive(company.id)} defaultChecked={company.active} />
+                <ToggleButton onChange={state => state ? handleActive(category.id) : handleInActive(category.id)} defaultChecked={category.active} />
             </td>
             <td style={{ "width": "15%" }}>
-                <a href={'/companys/' + company.id} class="table-link">
+                <a href={'/blogs/categories/' + category.id} class="table-link">
                     <span class="menu-icon" style={{ 'fontSize': '2.0rem' }}>
                         <i className="mdi mdi-crosshairs"></i>
                     </span>
                 </a>
-                <a href={'/companys/' + company.id} class="table-link">
+                <a href={'/blogs/categories/' + category.id} class="table-link">
                     <span class="menu-icon" style={{ 'fontSize': '2.0rem' }}>
                         <i className="mdi mdi-pencil-circle-outline"></i>
                     </span>
                 </a>
-                <a onClick={() => handleDelete(company.id)} class="table-link danger">
+                <a onClick={() => handleDelete(category.id)} class="table-link danger">
                     <span class="menu-icon" style={{ 'fontSize': '2.0rem' }}>
                         <i className="mdi mdi-delete-circle-outline"></i>
                     </span>
@@ -141,8 +117,8 @@ const CompanyTable = () => {
     const [q, setQ] = useState("");
 
     useEffect(() => {
-        setListResult(listCompany.filter((item) =>
-            (item.name && item.name.indexOf(q) !== -1) || (item.website && item.website.indexOf(q) !== -1)
+        setListResult(listCategory.filter((item) =>
+            (item.name && item.name.indexOf(q) !== -1) || (item.id && item.id.indexOf(q) !== -1)
         ))
     }, [q]);
 
@@ -150,27 +126,33 @@ const CompanyTable = () => {
         <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
                 <div className="card-body">
-                    <h4 className="card-title">Company Table</h4>
-                    <ul className="navbar-nav w-100">
-                        <li className="nav-item w-100">
+                    <h4 className="card-title">Category Table</h4>
+
+                    <ul className="navbar-nav w-100" style={{display: 'block ruby'}}>
+                        <li className="nav-item w-80" style={{width: '75%'}}>
                             <form className="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                                <input type="text" className="form-control" placeholder="Search company name or website" value={q} onChange={(e) => setQ(e.target.value)} />
+                                <input type="text" className="form-control" placeholder="Search category name or ID" value={q} onChange={(e) => setQ(e.target.value)} />
                             </form>
+                        </li>
+                        <li className="nav-item w-20" style={{width: '5%'}}>
+                            {/* <Link className="nav-link btn btn-success create-new-button no-caret"> + Create new category </Link> */}
+                        </li>
+                        <li className="nav-item w-20" style={{width: '20%'}}>
+                            <Link className="nav-link btn btn-success create-new-button no-caret"> + Create new category </Link>
                         </li>
                     </ul>
                     <div className="table-responsive">
                         <table className="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Company Name</th>
-                                    <th>Website</th>
-                                    <th class="text-center">View create employer</th>
+                                    <th>ID</th>
+                                    <th>Category Name</th>
                                     <th class="text-center">Status</th>
                                     <th>&nbsp;</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {CompanyTableContent}
+                                {CategoryTableContent}
                             </tbody>
                         </table>
                     </div>
@@ -188,4 +170,4 @@ const CompanyTable = () => {
     )
 }
 
-export default CompanyTable
+export default CategoryTable

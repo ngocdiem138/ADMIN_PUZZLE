@@ -7,8 +7,7 @@ import imageFace1 from "../../assets/images/faces/face1.jpg";
 import accountService from "../../services/accountService";
 import { useToasts } from 'react-toast-notifications';
 import authService from '../../services/authService';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import ImageNoAvatar from '../../assets/images/faces/noface.png';
 
 
 const Navbar = () => {
@@ -209,7 +208,7 @@ const Navbar = () => {
           <Dropdown alignRight as="li" className="nav-item">
             <Dropdown.Toggle as="a" className="nav-link cursor-pointer no-caret">
               <div className="navbar-profile">
-                <img className="img-xs rounded-circle" src={profileData.avatar} alt="profile" />
+                <img className="img-xs rounded-circle" src={profileData.avatar ? profileData.avatar : ImageNoAvatar} alt="profile" />
                 <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>{profileData.username}</Trans></p>
                 <i className="mdi mdi-menu-down d-none d-sm-block"></i>
               </div>

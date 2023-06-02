@@ -57,38 +57,6 @@ const BlogProfile = () => {
 
     const [fileImage, setFileImage] = useState()
 
-    const callbackFunction = (childData) => {
-        setFileImage(childData)
-    }
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            callbackFunction();
-            const formData = new FormData();
-            formData.append("image", fileImage);
-            formData.append("name", blogProfileData.name);
-            formData.append("website", blogProfileData.website);
-            formData.append("active", blogProfileData.active);
-            formData.append("description", blogProfileData.description);
-            const res = await companyService.updateCompany(params.id, formData);
-            if (res.data.errCode == "") {
-                addToast('Update company profile successfull', {
-                    appearance: 'success',
-                    autoDismiss: true,
-                })
-            }
-            else {
-                addToast('Some error occur. Please try again', {
-                    appearance: 'error',
-                    autoDismiss: false,
-                })
-            }
-            console.log(res)
-        } catch (error) {
-            setError(error.message)
-        }
-    };
 
     return (
         <div>
@@ -102,9 +70,9 @@ const BlogProfile = () => {
                 <div className="row">
                     <div className="col-lg-9 col-md-12">
                         <div className="card card-small mb-3">
-                            <div className="card-body">
+                            <div className="card-body"   style={{'backgroundColor': '#fff'}}>
                                 <form className="add-new-post">
-                                    <input className="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title" />
+                                    <input className="form-control form-control-lg mb-3" type="text" placeholder="Your Post Title" style={{'color': '#fff', 'fontWeight': '600'}}/>
                                     <ReactQuill
                                         style={{ 'color': '#000' }}
                                         theme="snow"
@@ -121,28 +89,9 @@ const BlogProfile = () => {
                     <div className="col-lg-3 col-md-12">
                         <div className="card card-small mb-3">
                             <div className="card-header border-bottom">
-                                <h6 className="m-0">Actions</h6>
-                            </div>
-                            <div className="card-body p-0">
-                                <ul className="list-group list-group-flush">
-                                    <li className="list-group-item p-3">
-                                        <span className="d-flex mb-2"><i className="material-icons mr-1">flag</i><strong className="mr-1">Status:</strong> Draft <a className="ml-auto" href="#">Edit</a></span>
-                                        <span className="d-flex mb-2"><i className="material-icons mr-1">visibility</i><strong className="mr-1">Visibility:</strong> <strong className="text-success">Public</strong> <a className="ml-auto" href="#">Edit</a></span>
-                                        <span className="d-flex mb-2"><i className="material-icons mr-1">calendar_today</i><strong className="mr-1">Schedule:</strong> Now <a className="ml-auto" href="#">Edit</a></span>
-                                        <span className="d-flex"><i className="material-icons mr-1">score</i><strong className="mr-1">Readability:</strong> <strong className="text-warning">Ok</strong></span>
-                                    </li>
-                                    <li className="list-group-item d-flex px-3">
-                                        <button className="btn btn-sm btn-outline-accent"><i className="material-icons">save</i> Save Draft</button>
-                                        <button className="btn btn-sm btn-accent ml-auto"><i className="material-icons">file_copy</i> Publish</button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="card card-small mb-3">
-                            <div className="card-header border-bottom">
                                 <h6 className="m-0">Categories</h6>
                             </div>
-                            <div className="card-body p-0">
+                            <div className="card-body p-0" style={{'color': '#000'}}>
                                 <ul className="list-group list-group-flush">
                                     <li className="list-group-item px-3 pb-2">
                                         <div className="custom-control custom-checkbox mb-1">
@@ -167,7 +116,7 @@ const BlogProfile = () => {
                                         </div>
                                     </li>
                                     <li className="list-group-item d-flex px-3">
-                                        <div className="input-group">
+                                        <div className="input-group" style={{'border': '1px solid rgba(0,0,0,.125)'}}>
                                             <input type="text" className="form-control" placeholder="New category" aria-label="Add new category" aria-describedby="basic-addon2" />
                                             <div className="input-group-append">
                                                 <button className="btn btn-white px-2" type="button"><i className="material-icons">add</i></button>
