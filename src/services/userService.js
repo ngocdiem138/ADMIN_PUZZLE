@@ -32,10 +32,18 @@ const userService = {
         return api.delete('admin/user/delete', data)
     },
     activeUser(userId) {
-        return api.put('admin/user/active', userId)
+        return api.put(`api/admin/account/${userId}`, { isActive: true }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
     },
     unActiveUser(userId) {
-        return api.put('admin/user/unactive', userId)
+        return api.put(`api/admin/account/${userId}`, { isActive: false }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
     },
 }
 

@@ -60,8 +60,8 @@ const SkillTable = () => {
         if (confirmBox === true) {
             extraInfoSkill.activeExtraInfo(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listSkill[upd_obj].active = true;
-            listResult[upd_obj].active = true;
+            listSkill[upd_obj].isActive = true;
+            listResult[upd_obj].isActive = true;
             return true;
         } else {
             return false;
@@ -70,13 +70,13 @@ const SkillTable = () => {
 
     const handleInActive = (id) => {
         const confirmBox = window.confirm(
-            "Do you really want to inactive this User?"
+            "Do you really want to inactive this Skill?"
         )
         if (confirmBox === true) {
             extraInfoSkill.inActiveExtraInfo(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listSkill[upd_obj].active = false;
-            listResult[upd_obj].active = false;
+            listSkill[upd_obj].isActive = false;
+            listResult[upd_obj].isActive = false;
             return true;
         } else {
             return false;
@@ -92,7 +92,7 @@ const SkillTable = () => {
                 {skill.name}
             </td>
             <td class="text-center">
-                <ToggleButton onChange={state => state ? handleActive(skill.id) : handleInActive(skill.id)} defaultChecked={skill.active} />
+                <ToggleButton onChange={state => state ? handleActive(skill.id) : handleInActive(skill.id)} defaultChecked={skill.isActive} />
             </td>
             <td style={{ "width": "15%" }}>
                 <a href={'/extraInfos/' + skill.id} class="table-link">

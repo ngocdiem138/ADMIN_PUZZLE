@@ -27,7 +27,7 @@ const extraInfoService = {
     getOneExtraInfo(id) {
         if (!token)
             return null
-        return api.get('api/admin/get-extra-info/' + id,
+        return api.get('api/admin/extra-info/' + id,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -38,7 +38,7 @@ const extraInfoService = {
     createNewExtraInfo(data) {
         if (!token)
             return null
-        return api.post('api/admin/add-extra-info/', data,
+        return api.post('api/admin/extra-info', data,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -46,8 +46,8 @@ const extraInfoService = {
             })
     },
 
-    updateExtraInfo(data) {
-        return api.put('api/admin/update-extra-info', data,
+    updateExtraInfo(id, data) {
+        return api.put('api/admin/extra-info/'+ id, data,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -56,7 +56,7 @@ const extraInfoService = {
     },
 
     activeExtraInfo(id) {
-        return api.put('api/admin/update-extra-info', {id: id, active: true},
+        return api.put('api/admin/extra-info/'+ id, {isActive: true},
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -65,7 +65,7 @@ const extraInfoService = {
     },
 
     inActiveExtraInfo(id) {
-        return api.put('api/admin/update-extra-info', {id: id, active: false},
+        return api.put('api/admin/extra-info/' + id, {isActive: false},
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -76,7 +76,7 @@ const extraInfoService = {
     deleteExtraInfo(id) {
         if (!token)
             return null
-        return api.get('api/admin/delete-extra-info/' + id,
+        return api.delete('api/admin/extra-info/' + id,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`

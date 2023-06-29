@@ -17,7 +17,7 @@ const statisticService = {
     },
 
     getAllTransactions() {
-        return api.get('/api/admin/get-all-invoice',
+        return api.get('/api/admin/invoice',
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -28,7 +28,7 @@ const statisticService = {
     getDataJoinLastWeek() {
         if (!token)
             return null
-        return api.get('/api/admin/get-data-join-account-in-last-num-week/6',
+        return api.get('/api/admin/statistics/new-account/get-amount/6',
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -39,7 +39,7 @@ const statisticService = {
     getApplicationAmount() {
         if (!token)
             return null
-        return api.get('api/admin/get-application-amount',
+        return api.get('api/admin/admin/application/get-amount',
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -50,7 +50,7 @@ const statisticService = {
     getJobAmount() {
         if (!token)
             return null
-        return api.get('api/admin/get-job-post-amount',
+        return api.get('api/admin/job-post/get-amount',
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -61,7 +61,7 @@ const statisticService = {
     getAmountAccount(id) {
         if (!token)
             return null
-        return api.get('/api/admin/get-account-amount',
+        return api.get('/api/admin/account/get-amount',
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -71,7 +71,7 @@ const statisticService = {
     getAmountCompany() {
         if (!token)
             return null
-        return api.get('/api/admin/get-all-company',
+        return api.get('/api/admin/company',
             {
                 headers: {
                     'Authorization': `Bearer ${token}`

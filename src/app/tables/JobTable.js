@@ -24,8 +24,8 @@ const JobTable = () => {
         jobService.getAllJob().then(response => {
             if (response.data.errCode == "403") {
             } else {
-                setListJob(response.data.data);
-                setListResult(response.data.data);
+                setListJob(response.data.data.content);
+                setListResult(response.data.data.content);
             }
         }
         )
@@ -69,10 +69,10 @@ const JobTable = () => {
             "Do you really want to active this Job?"
         )
         if (confirmBox === true) {
-            jobService.activeJob(id);
+            jobService.activeJob(id, true);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listJob[upd_obj].active = true;
-            listResult[upd_obj].active = true;
+            listJob[upd_obj].isActive = true;
+            listResult[upd_obj].isActive = true;
             return true;
         } else {
             return false;
@@ -84,10 +84,10 @@ const JobTable = () => {
             "Do you really want to inactive this Job?"
         )
         if (confirmBox === true) {
-            jobService.activeJob(id);
+            jobService.activeJob(id, false);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listJob[upd_obj].active = false;
-            listResult[upd_obj].active = false;
+            listJob[upd_obj].isActive = false;
+            listResult[upd_obj].isActive = false;
             return true;
         } else {
             return false;
@@ -106,22 +106,13 @@ const JobTable = () => {
                 {job.workplaceType}
             </td>
             <td>
-                {job.city}
-            </td>
-            <td>
-                {job.experienceYear}
-            </td>
-            <td>
                 {job.quantity}
             </td>
             <td>
-                {job.minBudget - job.maxBudget}
+                {job.minBudget} - {job.maxBudget}
             </td>
             <td className="text-center">
-                <ToggleButton onChange={state => state ? handleActive(job.id) : handleInActive(job.id)} defaultChecked={job.active} value={job.active} />
-            </td>
-            <td>
-                <a href={'/jobs/' + job.id}>{job.email}</a>
+                <ToggleButton onChange={state => state ? handleActive(job.id) : handleInActive(job.id)} defaultChecked={job.isActive} value={job.isActive} />
             </td>
             <td style={{ "width": "15%" }}>
                 <a href={'/jobs/' + job.id} className="table-link">
@@ -147,7 +138,7 @@ const JobTable = () => {
 
     useEffect(() => {
         setListResult(listJob.filter((item) =>
-            (item.fullName && item.fullName.indexOf(q) !== -1) || (item.email && item.email.indexOf(q) !== -1)
+            (item.title && item.title.indexOf(q) !== -1)
         ))
     }, [q]);
 
@@ -158,7 +149,7 @@ const JobTable = () => {
                     <ul className="navbar-nav w-100">
                         <li className="nav-item w-100">
                             <form className="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                                <input type="text" className="form-control" placeholder="Search full name or email" value={q} onChange={(e) => setQ(e.target.value)} />
+                                <input type="text" className="form-control" placeholder="Search title" value={q} onChange={(e) => setQ(e.target.value)} />
                             </form>
                         </li>
                     </ul>
@@ -169,7 +160,7 @@ const JobTable = () => {
                                     <tr>
                                         <th><span>Title</span></th>
                                         <th><span>Type</span></th>
-                                        <th className="text-center"><span>Work Place</span></th>
+                                        <th><span>Work Place</span></th>
                                         <th><span>Quantity</span></th>
                                         <th><span>Salary</span></th>
                                         <th className="text-center"><span>Status</span></th>

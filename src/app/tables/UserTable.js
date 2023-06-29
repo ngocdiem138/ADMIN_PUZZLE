@@ -35,8 +35,8 @@ const UserTable = () => {
         accountService.getAllAccount().then(response => {
             if (response.data.errCode == "403") {
             } else {
-                setListUser(response.data.data);
-                setListResult(response.data.data);
+                setListUser(response.data.data.content);
+                setListResult(response.data.data.content);
             }
         }
         )
@@ -115,7 +115,7 @@ const UserTable = () => {
             "Do you really want to inactive this User?"
         )
         if (confirmBox === true) {
-            userService.activeUser(id);
+            userService.unActiveUser(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
             listUser[upd_obj].active = false;
             listResult[upd_obj].active = false;
@@ -139,7 +139,7 @@ const UserTable = () => {
                 <span class={user.emailVerified ? "label label-success" : "label label-default"}>{user.emailVerified ? 'Verified' : 'Unconfirmed'}</span>
             </td>
             <td class="text-center">
-                <ToggleButton onChange={state => state ? handleActive(user.id) : handleInActive(user.id)} defaultChecked={user.active} value={user.active} />
+                <ToggleButton onChange={state => state ? handleActive(user.id) : handleInActive(user.id)} defaultChecked={user.isActive} value={user.isActive} />
             </td>
             <td>
                 <a href={'/users/' + user.id}>{user.email}</a>

@@ -51,7 +51,7 @@ const ExtraInfoProfile = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const res = await extraInfoService.updateExtraInfo(extraInfoProfileData);
+            const res = await extraInfoService.updateExtraInfo(params.id, extraInfoProfileData);
             if (res.data.errCode == "" || res.data.errCode == null) {
                 addToast('Update extraInfo profile successfull', {
                     appearance: 'success',
@@ -170,7 +170,7 @@ const ExtraInfoProfile = () => {
                                             <div className="form-check">
                                                 <label className="form-check-label">
                                                     <input type="radio" className="form-check-input"
-                                                        value='true' name="active" id="active" defaultChecked={extraInfoProfileData.active} /> Active
+                                                        value='true' name="isActive" id="active" defaultChecked={extraInfoProfileData.isActive} /> Active
                                                     <i className="input-helper"></i>
                                                 </label>
                                             </div>
@@ -179,7 +179,7 @@ const ExtraInfoProfile = () => {
                                             <div className="form-check">
                                                 <label className="form-check-label">
                                                     <input type="radio" className="form-check-input"
-                                                        value='false' name="active" id="inactive" defaultChecked={!extraInfoProfileData.active} /> Inactive
+                                                        value='false' name="isActive" id="inactive" defaultChecked={!extraInfoProfileData.isActive} /> Inactive
                                                     <i className="input-helper"></i>
                                                 </label>
                                             </div>

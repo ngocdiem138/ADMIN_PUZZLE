@@ -47,7 +47,7 @@ const CategoryTable = () => {
             "Do you really want to delete this Category?"
         )
         if (confirmBox === true) {
-            extraInfoService.deleteExtraInfo(id);
+            categoryService.deleteCategory(id);
             setListCategory(listCategory.filter((item) => item.id !== id));
             setListResult(listResult.filter((item) => item.id !== id));
         }
@@ -58,10 +58,10 @@ const CategoryTable = () => {
             "Do you really want to active this Category?"
         )
         if (confirmBox === true) {
-            extraInfoService.activeExtraInfo(id);
+            categoryService.activeCategory(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listCategory[upd_obj].active = true;
-            listResult[upd_obj].active = true;
+            listCategory[upd_obj].isActive = true;
+            listResult[upd_obj].isActive = true;
             return true;
         } else {
             return false;
@@ -70,13 +70,13 @@ const CategoryTable = () => {
 
     const handleInActive = (id) => {
         const confirmBox = window.confirm(
-            "Do you really want to inactive this User?"
+            "Do you really want to inactive this Category?"
         )
         if (confirmBox === true) {
-            extraInfoService.inActiveExtraInfo(id);
+            categoryService.inActiveCategory(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listCategory[upd_obj].active = false;
-            listResult[upd_obj].active = false;
+            listCategory[upd_obj].isActive = false;
+            listResult[upd_obj].isActive = false;
             return true;
         } else {
             return false;
@@ -92,7 +92,7 @@ const CategoryTable = () => {
                 {category.name}
             </td>
             <td class="text-center">
-                <ToggleButton onChange={state => state ? handleActive(category.id) : handleInActive(category.id)} defaultChecked={category.active} />
+                <ToggleButton onChange={state => state ? handleActive(category.id) : handleInActive(category.id)} defaultChecked={category.isActive} />
             </td>
             <td style={{ "width": "15%" }}>
                 <a href={'/blogs/categories/' + category.id} class="table-link">
@@ -138,7 +138,7 @@ const CategoryTable = () => {
                             {/* <Link className="nav-link btn btn-success create-new-button no-caret"> + Create new category </Link> */}
                         </li>
                         <li className="nav-item w-20" style={{width: '20%'}}>
-                            <Link className="nav-link btn btn-success create-new-button no-caret"> + Create new category </Link>
+                            <Link className="nav-link btn btn-success create-new-button no-caret" to="/blogs/categories/new"> + Create new category </Link>
                         </li>
                     </ul>
                     <div className="table-responsive">

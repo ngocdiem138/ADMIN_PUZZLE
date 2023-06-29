@@ -8,7 +8,7 @@ const NewExtraInfoProfile = () => {
 
 
     const { addToast } = useToasts();
-    const [extraInfoProfileData, setExtraInfoProfileData] = useState({});
+    const [extraInfoProfileData, setExtraInfoProfileData] = useState({isActive: false, type: 'SERVICE'});
     const [amountSkill, setAmountSkill] = useState(0);
     const [amountPosition, setAmountPosition] = useState(0);
     const [amountService, setAmountService] = useState(0);
@@ -125,8 +125,8 @@ const NewExtraInfoProfile = () => {
     };
 
     return (
-        <div>
-            <div className="col-12 grid-margin">
+        <div className="row">
+            <div className="col-md-8 grid-margin">
                 <div className="card">
                     <div className="card-body">
                         <h4 className="card-title">Extra Information</h4>
@@ -135,7 +135,7 @@ const NewExtraInfoProfile = () => {
                                 <div className="col-md-12">
                                     <Form.Group className="row">
                                         <label className="col-sm-1 col-form-label">Name</label>
-                                        <div className="col-sm-9">
+                                        <div className="col-sm-11">
                                             <Form.Control type="text" placeholder="Name" name="name"
                                                 value={extraInfoProfileData.name} onChange={(event) => setExtraInfoProfileData({ ...extraInfoProfileData, [event.target.name]: event.target.value })} />
                                         </div>
@@ -157,21 +157,21 @@ const NewExtraInfoProfile = () => {
                                 </div>
                                 <div className="col-md-6">
                                     <Form.Group className="row" name="active" onChange={(event) => setExtraInfoProfileData({ ...extraInfoProfileData, [event.target.name]: event.target.value })}>
-                                        <label className="col-sm-2 col-form-label">Active</label>
-                                        <div className="col-sm-3">
+                                        <label className="col-sm-3 col-form-label">Active</label>
+                                        <div className="col-sm-4">
                                             <div className="form-check">
                                                 <label className="form-check-label">
                                                     <input type="radio" className="form-check-input"
-                                                        value='true' name="active" id="active" defaultChecked={extraInfoProfileData.active} /> Active
+                                                        value='true' name="isActive" id="active" defaultChecked={extraInfoProfileData.isActive} /> Active
                                                     <i className="input-helper"></i>
                                                 </label>
                                             </div>
                                         </div>
-                                        <div className="col-sm-3">
+                                        <div className="col-sm-4">
                                             <div className="form-check">
                                                 <label className="form-check-label">
                                                     <input type="radio" className="form-check-input"
-                                                        value='false' name="active" id="inactive" defaultChecked={!extraInfoProfileData.active} /> Inactive
+                                                        value='false' name="isActive" id="inactive" defaultChecked={!extraInfoProfileData.isActive} /> Inactive
                                                     <i className="input-helper"></i>
                                                 </label>
                                             </div>
@@ -186,11 +186,11 @@ const NewExtraInfoProfile = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-md-12 grid-margin stretch-card">
+            <div className="col-md-4 grid-margin stretch-card">
                 <div className="card">
                     <div className="card-body">
                         <h4 className="card-title">Extra Info Chart</h4>
-                        <Doughnut data={doughnutPieData} options={doughnutPieOptions} />
+                        <Doughnut  data={doughnutPieData} options={doughnutPieOptions} />
                     </div>
                 </div>
             </div>

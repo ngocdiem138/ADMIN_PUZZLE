@@ -60,8 +60,8 @@ const PositionTable = () => {
         if (confirmBox === true) {
             extraInfoService.activeExtraInfo(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listPosition[upd_obj].active = true;
-            listResult[upd_obj].active = true;
+            listPosition[upd_obj].isActive = true;
+            listResult[upd_obj].isActive = true;
             return true;
         } else {
             return false;
@@ -70,13 +70,13 @@ const PositionTable = () => {
 
     const handleInActive = (id) => {
         const confirmBox = window.confirm(
-            "Do you really want to inactive this User?"
+            "Do you really want to inactive this Position?"
         )
         if (confirmBox === true) {
             extraInfoService.inActiveExtraInfo(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
-            listPosition[upd_obj].active = false;
-            listResult[upd_obj].active = false;
+            listPosition[upd_obj].isActive = false;
+            listResult[upd_obj].isActive = false;
             return true;
         } else {
             return false;
@@ -92,7 +92,7 @@ const PositionTable = () => {
                 {position.name}
             </td>
             <td class="text-center">
-                <ToggleButton onChange={state => state ? handleActive(position.id) : handleInActive(position.id)} defaultChecked={position.active} />
+                <ToggleButton onChange={state => state ? handleActive(position.id) : handleInActive(position.id)} defaultChecked={position.isActive} />
             </td>
             <td style={{ "width": "15%" }}>
                 <a href={'/extraInfos/' + position.id} class="table-link">

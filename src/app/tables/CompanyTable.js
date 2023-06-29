@@ -36,8 +36,8 @@ const CompanyTable = () => {
         companyService.getAllCompany().then(response => {
             if (response.data.errCode == "403") {
             } else {
-                setListCompany(response.data.data);
-                setListResult(response.data.data);
+                setListCompany(response.data.data.content);
+                setListResult(response.data.data.content);
             }
         }
         )
@@ -74,10 +74,10 @@ const CompanyTable = () => {
 
     const handleActive = (id) => {
         const confirmBox = window.confirm(
-            "Do you really want to active this User?"
+            "Do you really want to active this Company?"
         )
         if (confirmBox === true) {
-            userService.activeUser(id);
+            companyService.activeCompany(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
             listCompany[upd_obj].active = true;
             listResult[upd_obj].active = true;
@@ -86,10 +86,10 @@ const CompanyTable = () => {
 
     const handleInActive = (id) => {
         const confirmBox = window.confirm(
-            "Do you really want to inactive this User?"
+            "Do you really want to inactive this Company?"
         )
         if (confirmBox === true) {
-            userService.activeUser(id);
+            companyService.unActiveCompany(id);
             let upd_obj = listResult.findIndex((obj => obj.id == id));
             listCompany[upd_obj].active = false;
             listResult[upd_obj].active = false;
@@ -116,7 +116,7 @@ const CompanyTable = () => {
                     : ''}
             </td>
             <td class="text-center">
-                <ToggleButton onChange={state => state ? handleActive(company.id) : handleInActive(company.id)} defaultChecked={company.active} />
+                <ToggleButton onChange={state => state ? handleActive(company.id) : handleInActive(company.id)} defaultChecked={company.isPublic} />
             </td>
             <td style={{ "width": "15%" }}>
                 <a href={'/companys/' + company.id} class="table-link">

@@ -28,7 +28,7 @@ const accountService = {
   },
 
   getAllAccount() {
-    return api.get("api/admin/get-all-account", {
+    return api.get("api/admin/account", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -37,7 +37,7 @@ const accountService = {
 
   getAccountById(id) {
     if (!token) return null;
-    return api.get("/api/admin/get-account-by-id/" + id, {
+    return api.get("/api/admin/account/" + id, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -45,7 +45,7 @@ const accountService = {
   },
 
   createAccount(data) {
-    return api.post("/api/admin/add-account", data, {
+    return api.post("/api/admin/account", data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -53,7 +53,7 @@ const accountService = {
   },
 
   updateAccount(id, data) {
-    return api.put("/api/admin/update-account-by-id/" + id, data, {
+    return api.put("/api/admin/account/" + id, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

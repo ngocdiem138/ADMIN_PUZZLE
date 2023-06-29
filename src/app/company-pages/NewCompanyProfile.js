@@ -60,7 +60,7 @@ const NewCompanyProfile = () => {
             formData.append("active", companyProfileData.active);
             formData.append("description", companyProfileData.description);
             const res = await companyService.createCompany(formData);
-            if (res.data.errCode == "") {
+            if (res.data.errCode == "" || res.data.errCode == null) {
                 addToast('Create company profile successfull', {
                     appearance: 'success',
                     autoDismiss: true,

@@ -38,6 +38,8 @@ const CompanyProfile = lazy(() => import('./company-pages/CompanyProfile'));
 const NewCompanyProfile = lazy(() => import('./company-pages/NewCompanyProfile'));
 const ExtraInfoProfile = lazy(() => import('./extrainfo-pages/ExtraInfoProfile'));
 const NewExtraInfoProfile = lazy(() => import('./extrainfo-pages/NewExtraInfoProfile'));
+// const C = lazy(() => import('./extrainfo-pages/ExtraInfoProfile'));
+const NewCategory = lazy(() => import('./blog-pages/NewCategory'));
 const NewBlogProfile= lazy(() => import('./blog-pages/NewBlogProfile'));
 const BlogDashboard = lazy(() => import('./blog-pages/BlogDashboard'));
 class AppRoutes extends Component {
@@ -74,6 +76,8 @@ class AppRoutes extends Component {
           <Route path="/companys/new" component={ NewCompanyProfile } />
           <Route path="/companys/:id" component={ CompanyProfile } />
           <Route path="/extraInfos/new" component={ NewExtraInfoProfile } />
+          <Route path="/extraInfos/:id" component={ ExtraInfoProfile } />
+          <Route path="/blogs/categories/new" component={ NewCategory } />
           <Route path="/extraInfos/:id" component={ ExtraInfoProfile } />
           <Route path="/user-pages/reset-password" component={ ResetPassword } />
           <Route path="/user-pages/forgot-password" component={ ForgotPassword } />
