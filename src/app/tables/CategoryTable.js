@@ -15,7 +15,7 @@ const CategoryTable = () => {
 
     useEffect(() => {
         categoryService.getAllCategory().then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setListCategory(response.data.data);
                 setListResult(response.data.data);

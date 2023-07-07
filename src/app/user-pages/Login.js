@@ -23,7 +23,7 @@ const Login = () => {
     };
     try {
       const res = await authService.login(data)
-      if (res.data.message === "Login success" && res.data.data.roles.includes("ADMIN")) {
+      if (res.data.data.roles.includes("ADMIN")) {
         localStorage.setItem('login', res.data.data.jwt)
         setError("Đăng nhập thành công")
         await new Promise(resolve => setTimeout(resolve, 1000))

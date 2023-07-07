@@ -12,7 +12,7 @@ const Sidebar = () => {
   const { addToast } = useToasts();
   useEffect(() => {
     accountService.getProfile().then(res => {
-      if (res.data.errCode == "403") {
+      if (res.data.errCode == "UNAUTHORIZED_ERROR") {
       } else {
         setProfileData(res.data.data);
       }

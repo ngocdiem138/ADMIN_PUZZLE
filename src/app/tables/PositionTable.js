@@ -15,7 +15,7 @@ const PositionTable = () => {
 
     useEffect(() => {
         extraInfoService.getAllExtraInfoByType('position').then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setListPosition(response.data.data);
                 setListResult(response.data.data);

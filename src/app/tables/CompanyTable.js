@@ -34,7 +34,7 @@ const CompanyTable = () => {
 
     useEffect(() => {
         companyService.getAllCompany().then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setListCompany(response.data.data.content);
                 setListResult(response.data.data.content);

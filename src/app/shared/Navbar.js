@@ -15,7 +15,7 @@ const Navbar = () => {
   const { addToast } = useToasts();
   useEffect(() => {
     accountService.getProfile().then(res => {
-      if (res.data.errCode == "403") {
+      if (res.data.errCode == "UNAUTHORIZED_ERROR") {
         addToast(<a href='/login' onClick={onLogout} style={{'fontSize': 24}}>Session expire. Click here to login again</a>, {
           appearance: 'info',
           autoDismiss: false,

@@ -33,7 +33,7 @@ const UserTable = () => {
     const [updateStatus, setUpdateStatus] = useState(true)
     useEffect(() => {
         accountService.getAllAccount().then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setListUser(response.data.data.content);
                 setListResult(response.data.data.content);

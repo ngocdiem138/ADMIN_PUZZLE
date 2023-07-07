@@ -45,7 +45,7 @@ const CompanyProfile = () => {
     const [companyProfileData, setCompanyProfileData] = useState({});
     useEffect(() => {
         companyService.getOneCompany(params.id).then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 if (!companyProfileData.id) {
                     setCompanyProfileData(response.data.data);

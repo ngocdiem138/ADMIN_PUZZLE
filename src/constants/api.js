@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create(
     {
-        baseURL:  'https://puzzle-ute.herokuapp.com'
+        baseURL:  'https://puzzleute.xyz'
     }
 )
 

@@ -116,7 +116,7 @@ const BlogProfile = () => {
 
         if (id != 'new') {
             BlogServiceIml.updateBlogPost(id, formData).then((response) => {
-                if (response.data.errCode == "403") {
+                if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                     setShowAlert(true);
                 } else if (response.data.errCode != "200" && response.data.errCode != null) {
                     addToast(<a href='/dashboard-blogs' style={{ 'fontSize': 16 }}>Update blog post successfull, click here to return list blog page</a>, {
@@ -135,7 +135,7 @@ const BlogProfile = () => {
         } else {
 
             BlogServiceIml.createBlogPost(formData).then((response) => {
-                if (response.data.errCode == "403") {
+                if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                     setShowAlert(true);
                 } else if (response.data.errCode != "200" && response.data.errCode != null) {
                     addToast(<a href='/dashboard-blogs' style={{ 'fontSize': 16 }}>Create blog post successfull, click here to return list blog page</a>, {

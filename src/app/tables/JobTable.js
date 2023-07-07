@@ -22,7 +22,7 @@ const JobTable = () => {
     const [updateStatus, setUpdateStatus] = useState(true)
     useEffect(() => {
         jobService.getAllJob().then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setListJob(response.data.data.content);
                 setListResult(response.data.data.content);

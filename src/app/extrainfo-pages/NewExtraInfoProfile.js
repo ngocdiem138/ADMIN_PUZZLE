@@ -15,7 +15,7 @@ const NewExtraInfoProfile = () => {
 
     useEffect(() => {
         extraInfoService.getAllExtraInfoByType('skill').then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
 
             } else {
                 setAmountSkill(response.data.data.length);
@@ -23,7 +23,7 @@ const NewExtraInfoProfile = () => {
         }
         );
         extraInfoService.getAllExtraInfoByType('service').then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
 
             } else {
                 setAmountService(response.data.data.length);
@@ -31,7 +31,7 @@ const NewExtraInfoProfile = () => {
         }
         );
         extraInfoService.getAllExtraInfoByType('position').then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
 
             } else {
                 setAmountPosition(response.data.data.length);
@@ -50,7 +50,7 @@ const NewExtraInfoProfile = () => {
                     autoDismiss: true,
                 }),
                 extraInfoService.getAllExtraInfoByType('skill').then(response => {
-                    if (response.data.errCode == "403") {
+                    if (response.data.errCode == "UNAUTHORIZED_ERROR") {
 
                     } else {
                         setAmountSkill(response.data.data.length);
@@ -58,7 +58,7 @@ const NewExtraInfoProfile = () => {
                 }
                 ),
                 extraInfoService.getAllExtraInfoByType('service').then(response => {
-                    if (response.data.errCode == "403") {
+                    if (response.data.errCode == "UNAUTHORIZED_ERROR") {
 
                     } else {
                         setAmountService(response.data.data.length);
@@ -66,7 +66,7 @@ const NewExtraInfoProfile = () => {
                 }
                 ),
                 extraInfoService.getAllExtraInfoByType('position').then(response => {
-                    if (response.data.errCode == "403") {
+                    if (response.data.errCode == "UNAUTHORIZED_ERROR") {
 
                     } else {
                         setAmountPosition(response.data.data.length);

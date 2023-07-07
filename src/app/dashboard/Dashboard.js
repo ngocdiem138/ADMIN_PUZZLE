@@ -119,7 +119,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     statisticService.getAllTransactions().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setInvoces(response.data.data.content);
@@ -127,7 +127,7 @@ const Dashboard = () => {
     });
 
     statisticService.getAmountCompany().then((res) => {
-      if (res.data.errCode == "403") {
+      if (res.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setCompanyNumber(res.data.data.content.length);

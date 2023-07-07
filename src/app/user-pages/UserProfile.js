@@ -30,7 +30,7 @@ const UserProfile = () => {
     };
     useEffect(() => {
         accountService.getAccountById(params.id).then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setProfileData(response.data.data);
                 let array = []
@@ -67,7 +67,7 @@ const UserProfile = () => {
         event.preventDefault();
         try {
             const res = await accountService.updateAccount(params.id, profileData);
-            if (res.data.errCode == "") {
+            if (!res.data.errCode) {
                 addToast('Update profile successfull', {
                     appearance: 'success',
                     autoDismiss: true,
@@ -98,7 +98,7 @@ const UserProfile = () => {
                         <div className="card card-small mb-4 pt-3">
                             <div className="card-header border-bottom text-center">
                                 <div className="mb-3 mx-auto">
-                                    {profileData.avatar !== undefined ? <CardProfile url={(!profileData.avatar) ? ImageNoAvatar : profileData.avatar } /> : ''}
+                                    {profileData.avatar !== undefined ? <CardProfile url={(!profileData.avatar) ? ImageNoAvatar : profileData.avatar} /> : ''}
                                 </div>
                                 <h4 className="mb-0">{profileData.username}</h4>
                             </div>
@@ -153,18 +153,18 @@ const UserProfile = () => {
                                                 <div className="form-row">
                                                     <div className="form-group col-md-6">
                                                         <label htmlFor="feInputActive">Active</label>
-                                                        <select id="feInputActive" className="form-control" name='active' style={{ backgroundColor: '#fff', color: '#000' }}
-                                                            value={profileData.active} onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
-                                                            <option value="true">Active</option>
-                                                            <option value="false">Inactive</option>
+                                                        <select id="feInputActive" className="form-control" name='isActive' style={{ backgroundColor: '#fff', color: '#000' }}
+                                                            value={profileData.isActive} onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
+                                                            <option value={true}>Active</option>
+                                                            <option value={false}>Inactive</option>
                                                         </select>
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label htmlFor="feInputActive">Email Verified</label>
-                                                        <select id="feInputActive" className="form-control" name='email_verified' style={{ backgroundColor: '#fff', color: '#000' }}
-                                                            value={profileData.email_verified} onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
-                                                            <option value="true">Verified</option>
-                                                            <option value="false">Unconfirmed</option>
+                                                        <select id="feInputActive" className="form-control" name='emailVerified' style={{ backgroundColor: '#fff', color: '#000' }}
+                                                            value={profileData.emailVerified} onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
+                                                            <option value={true}>Verified</option>
+                                                            <option value={false}>Unconfirmed</option>
                                                         </select>
                                                     </div>
                                                     <div className="form-group col-md-12" style={{ backgroundColor: '#fff', color: '#000' }}>

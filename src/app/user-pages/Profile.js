@@ -22,7 +22,7 @@ const Profile = () => {
 
     useEffect(() => {
         accountService.getProfile().then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setProfileData(response.data.data);
                 let array = []
@@ -141,8 +141,8 @@ const Profile = () => {
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label htmlFor="feInputActive">Email Verified</label>
-                                                        <select id="feInputActive" className="form-control" name='email_verified' style={{ backgroundColor: '#fff', color: '#000' }}
-                                                            value={profileData.email_verified} onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
+                                                        <select id="feInputActive" className="form-control" name='emailVerified' style={{ backgroundColor: '#fff', color: '#000' }}
+                                                            value={profileData.emailVerified} onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
                                                             <option value="true">Verified</option>
                                                             <option value="false">Unconfirmed</option>
                                                         </select>

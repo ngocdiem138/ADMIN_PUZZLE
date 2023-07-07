@@ -15,7 +15,7 @@ const ServiceTable = () => {
 
     useEffect(() => {
         extraInfoService.getAllExtraInfoByType('service').then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setListService(response.data.data);
                 setListResult(response.data.data);

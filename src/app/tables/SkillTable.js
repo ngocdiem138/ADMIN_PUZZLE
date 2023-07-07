@@ -15,7 +15,7 @@ const SkillTable = () => {
 
     useEffect(() => {
         extraInfoSkill.getAllExtraInfoByType('skill').then(response => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             } else {
                 setListSkill(response.data.data);
                 setListResult(response.data.data);
