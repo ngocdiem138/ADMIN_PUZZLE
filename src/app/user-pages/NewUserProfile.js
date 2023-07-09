@@ -130,7 +130,7 @@ const NewUserProfile = () => {
                                                         <select id="feInputActive" className="form-control" name='active' style={{ backgroundColor: '#fff', color: '#000' }}
                                                         onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
                                                             <option value={true}>Active</option>
-                                                            <option value="false">Inactive</option>
+                                                            <option value={false}>Inactive</option>
                                                         </select>
                                                     </div>
                                                     <div className="form-group col-md-6">
@@ -138,7 +138,7 @@ const NewUserProfile = () => {
                                                         <select id="feInputActive" className="form-control" name='emailVerified' style={{ backgroundColor: '#fff', color: '#000' }}
                                                         onChange={(event) => setProfileData({ ...profileData, [event.target.name]: event.target.value })}>
                                                             <option value={true}>Verified</option>
-                                                            <option value="false">Unconfirmed</option>
+                                                            <option value={false}>Unconfirmed</option>
                                                         </select>
                                                     </div>
                                                     </div>

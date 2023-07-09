@@ -8,7 +8,7 @@ const statisticService = {
     getTotalRevenueByTime(time){
         if (!token)
             return null
-        return api.post('/api/admin/get-total-revenue-by-time-frame', time,
+        return api.post('/api/admin/invoice/total-revenue/get-by-time-frame', time,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
