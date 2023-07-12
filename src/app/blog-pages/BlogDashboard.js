@@ -5,15 +5,74 @@ import ImageNoAvatar from '../../assets/images/faces/noface.png';
 import { useToasts } from 'react-toast-notifications';
 import companyService from '../../services/companyService';
 import { Line, Bar, Doughnut, Pie, Scatter } from 'react-chartjs-2';
+import blogService from '../../services/blogService';
+import moment from 'moment';
 
 const BlogDashboard = () => {
+    const date = new Date()
+    const timeNow = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+    const dateNow = moment(new Date()).format('YYYY-MM-DD 00:00:00')
+    const firstDayCurrentMonth = moment(new Date(date.getFullYear(), date.getMonth(), 1)).format('YYYY-MM-DD 00:00:00');
+    const firstDayPreviousMonth = moment(new Date(date.getFullYear(), date.getMonth() - 1, 1)).format('YYYY-MM-DD 00:00:00');
+    const lastDayPreviousMonth = moment(new Date(date.getFullYear(), date.getMonth(), 0)).format('YYYY-MM-DD 23:59:59');
+    const [allBlogPost, setAllBlogPost] = useState([]);
+    useEffect(() => {
+        blogService.getAllBlog().then(response => {
+            setAllBlogPost(response.data.data.content)
+        })
+    }, [])
+    const filterByTime = (time) => {
+        let day = time.split(' ')[0]
+        let blogs = allBlogPost.filter((blogPost) => blogPost.createdAt.split(' ')[0] == day);
+        return blogs.length
+    }
 
+    const formattedDate = (date, add) => {
+        return moment(date)
+            .startOf('month')
+            .add(add, 'day')
+            .format('YYYY-MM-DD 00:00:00');
+    }
+    function getDaysOfMonth() {
+        const currentDate = moment();
+        const daysInMonth = currentDate.daysInMonth();
+        const daysArray = [];
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const formattedDate = moment(currentDate)
+                .date(day)
+                .format('YYYY-MM-DD');
+            daysArray.push(filterByTime(formattedDate));
+        }
+
+        return daysArray;
+    }
+
+    function getDaysOfPreviousMonth() {
+        const currentDate = moment();
+        const previousMonthDate = moment(currentDate).subtract(1, 'month');
+        const daysInMonth = previousMonthDate.daysInMonth();
+        const daysArray = [];
+
+        for (let day = 1; day <= daysInMonth; day++) {
+            const formattedDate = moment(previousMonthDate)
+                .date(day)
+                .format('YYYY-MM-DD');
+            daysArray.push(filterByTime(formattedDate));
+        }
+
+        return daysArray;
+    }
+
+    const daysOfMonth = getDaysOfMonth();
+    const daysOfPreviousMonth = getDaysOfPreviousMonth();
+    console.log(daysOfMonth);
     const areaData = {
         labels: ["1", "2", "3", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
         datasets: [{
             label: 'Current month',
-            data: [15, 9, 7, 5, 1, 3],
+            data: daysOfMonth,
             borderColor: "rgb(53, 162, 235)",
             backgroundColor: "rgba(53, 162, 235, 0.3)",
             fill: "origin",
@@ -21,7 +80,7 @@ const BlogDashboard = () => {
         },
         {
             label: 'Last month',
-            data: [12, 19, 3, 5, 2, 3],
+            data: daysOfPreviousMonth,
             borderColor: "rgb(255, 99, 132)",
             backgroundColor: "rgba(255, 162, 235, 0.3)",
             fill: "origin", // 3. Set the fill options
@@ -54,7 +113,7 @@ const BlogDashboard = () => {
     const { addToast } = useToasts();
     const [blogProfileData, setBlogProfileData] = useState({});
     useEffect(() => {
-        
+
     }, []);
 
     const [fileImage, setFileImage] = useState()
@@ -118,7 +177,7 @@ const BlogDashboard = () => {
                                 <div className="d-flex flex-column m-auto">
                                     <div className="stats-small__data text-center">
                                         <span className="stats-small__label text-uppercase">Posts</span>
-                                        <h6 className="stats-small__value count my-3">2,390</h6>
+                                        <h6 className="stats-small__value count my-3">{allBlogPost.length}</h6>
                                     </div>
                                     <div className="stats-small__data">
                                         <span className="stats-small__percentage stats-small__percentage--increase">4.7%</span>
@@ -217,7 +276,7 @@ const BlogDashboard = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     <div className="col-lg-9 col-md-12 col-sm-12 mb-4">
                         <div className="card card-small blog-comments">
                             <div className="card-header border-bottom">
@@ -355,7 +414,7 @@ const BlogDashboard = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

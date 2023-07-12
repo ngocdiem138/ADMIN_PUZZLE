@@ -189,6 +189,15 @@ const BlogProfile = () => {
         setThumbnail(childData)
     }
 
+    const listCategories = () => {
+        categoryList.forEach((category) => {
+            return <div className="custom-control  mb-1">
+                <input type="radio" name="categoryId" id={category.value} checked="" />
+                <label for={"category" + category.value}>{category.label}</label>
+            </div>
+        })
+    }
+
     return (
         <div>
             <div className="main-content-container container-fluid px-4">
@@ -245,26 +254,7 @@ const BlogProfile = () => {
                             <div className="card-body p-0" style={{ 'color': '#000' }}>
                                 <ul className="list-group list-group-flush">
                                     <li className="list-group-item px-3 pb-2">
-                                        <div className="custom-control  mb-1">
-                                            <input type="radio" name="category" id="category1" checked="" />
-                                            <label for="category1">Uncategorized</label>
-                                        </div>
-                                        <div className="custom-control  mb-1">
-                                            <input type="radio" name="category" id="category2" checked="" />
-                                            <label for="category2">Design</label>
-                                        </div>
-                                        <div className="custom-control  mb-1">
-                                            <input type="radio" name="category" id="category3" />
-                                            <label for="category3">Development</label>
-                                        </div>
-                                        <div className="custom-control  mb-1">
-                                            <input type="radio" name="category" id="category4" />
-                                            <label for="category4">Writing</label>
-                                        </div>
-                                        <div className="custom-control  mb-1">
-                                            <input type="radio" name="category" id="category5" />
-                                            <label for="category5">Books</label>
-                                        </div>
+                                        {listCategories}
                                     </li>
                                     <li className="list-group-item d-flex px-3">
                                         <div className="input-group" style={{ 'border': '1px solid rgba(0,0,0,.125)' }}>

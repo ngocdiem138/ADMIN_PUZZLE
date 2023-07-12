@@ -11,8 +11,8 @@ const blogService = {
             }
         })
     },
-    getAllCategory() {
-        return api.get('api/admin/blog', {
+    getAllBlog() {
+        return api.get('api/common/blog-post', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

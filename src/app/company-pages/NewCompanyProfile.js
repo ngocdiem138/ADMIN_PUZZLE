@@ -41,7 +41,7 @@ const NewCompanyProfile = () => {
         "image",
     ];
     const { addToast } = useToasts();
-    const [companyProfileData, setCompanyProfileData] = useState({description: '', active: false});
+    const [companyProfileData, setCompanyProfileData] = useState({description: '', isActive: false});
 
     const [fileImage, setFileImage] = useState();
     const [isFile, setIsFile] = useState(false);
@@ -61,7 +61,7 @@ const NewCompanyProfile = () => {
             }
             formData.append("name", companyProfileData.name);
             formData.append("website", companyProfileData.website);
-            formData.append("active", companyProfileData.active);
+            formData.append("isActive", companyProfileData.isActive);
             formData.append("description", companyProfileData.description);
             const res = await companyService.createCompany(formData);
             if (res.data.errCode == "" || res.data.errCode == null) {
@@ -119,8 +119,8 @@ const NewCompanyProfile = () => {
                                                     </div>
                                                     <div className="form-group col-md-6">
                                                         <label htmlFor="feInputActive">Active</label>
-                                                        <select id="feInputActive" className="form-control" name='active' style={{ backgroundColor: '#fff', color: '#000' }}
-                                                            value={companyProfileData.active ? companyProfileData.active : false} onChange={(event) => setCompanyProfileData({ ...companyProfileData, [event.target.name]: event.target.value })}>
+                                                        <select id="feInputActive" className="form-control" name='isActive' style={{ backgroundColor: '#fff', color: '#000' }}
+                                                            value={companyProfileData.isActive ? companyProfileData.isActive : false} onChange={(event) => setCompanyProfileData({ ...companyProfileData, [event.target.name]: event.target.value })}>
                                                             <option value="true">Active</option>
                                                             <option value="false">Inactive</option>
                                                         </select>

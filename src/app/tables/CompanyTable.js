@@ -66,7 +66,7 @@ const CompanyTable = () => {
             "Do you really want to delete this Company?"
         )
         if (confirmBox === true) {
-            userService.deleteCompany(id)
+            companyService.deleteCompany(id)
             setListCompany(listCompany.filter((item) => item.id !== id));
             setListResult(listResult.filter((item) => item.id !== id));
         }
@@ -116,7 +116,7 @@ const CompanyTable = () => {
                     : ''}
             </td>
             <td class="text-center">
-                <ToggleButton onChange={state => state ? handleActive(company.id) : handleInActive(company.id)} defaultChecked={company.isPublic} />
+                <ToggleButton onChange={state => state ? handleActive(company.id) : handleInActive(company.id)} defaultChecked={company.isActive} />
             </td>
             <td style={{ "width": "15%" }}>
                 <a href={'/companys/' + company.id} class="table-link">

@@ -122,7 +122,7 @@ const Dashboard = () => {
       if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
-        setInvoces(response.data.data.content);
+        setInvoces(response.data.data);
       }
     });
 

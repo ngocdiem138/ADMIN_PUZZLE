@@ -23,7 +23,7 @@ const companyService = {
     },
 
     deleteCompany(id) {
-        return api.get('/api/admin/company/' + id,
+        return api.delete('/api/admin/company/' + id,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -52,7 +52,7 @@ const companyService = {
 
     activeCompany(companyId) {
         const formData = new FormData();
-        formData.append("isPublic", true);
+        formData.append("isActive", true);
         return api.put(`api/admin/company/${companyId}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -61,7 +61,7 @@ const companyService = {
     },
     unActiveCompany(companyId) {
         const formData = new FormData();
-        formData.append("isPublic", false);
+        formData.append("isActive", false);
         return api.put(`api/admin/company/${companyId}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,

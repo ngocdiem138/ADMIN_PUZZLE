@@ -56,9 +56,10 @@ const CompanyProfile = () => {
     }, []);
 
     const [fileImage, setFileImage] = useState()
-
+    const [isFile, setIsFile] = useState(false);
     const callbackFunction = (childData) => {
-        setFileImage(childData)
+        setFileImage(childData);
+        setIsFile(true);
     }
 
     const handleSubmit = async (event) => {
@@ -66,10 +67,12 @@ const CompanyProfile = () => {
         try {
             callbackFunction();
             const formData = new FormData();
-            formData.append("image", fileImage);
+            if (fileImage && isFile) {
+                formData.append("image", fileImage);
+            }
             formData.append("name", companyProfileData.name);
             formData.append("website", companyProfileData.website);
-            formData.append("active", companyProfileData.active);
+            formData.append("isActive", companyProfileData.isActive);
             formData.append("description", companyProfileData.description);
             const res = await companyService.updateCompany(params.id, formData);
             if (res.data.errCode == "") {
