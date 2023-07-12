@@ -279,12 +279,12 @@ const Sidebar = () => {
                     <span className="menu-title"><Trans>Blog Dashboard</Trans></span>
                   </Link>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link className={isPathActive('/blogs/new') ? 'nav-link active' : 'nav-link'} to="/blogs/new">
                     <span className="menu-icon"><i className="mdi mdi-view-grid-plus"></i></span>
                     <span className="menu-title"><Trans>Add new post</Trans></span>
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link className={isPathActive('/blogs/categories') ? 'nav-link active' : 'nav-link'} to="/blogs/categories">
                     <span className="menu-icon"><i className="mdi mdi-content-duplicate"></i></span>

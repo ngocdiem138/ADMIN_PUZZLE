@@ -7,8 +7,11 @@ import companyService from '../../services/companyService';
 import { Line, Bar, Doughnut, Pie, Scatter } from 'react-chartjs-2';
 import blogService from '../../services/blogService';
 import moment from 'moment';
+import statisticService from '../../services/statisticService';
 
 const BlogDashboard = () => {
+    const [userNumber, setUserNumber] = useState(0);
+    statisticService.getAmountAccount().then(res => { setUserNumber(res.data.data) })
     const date = new Date()
     const timeNow = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
     const dateNow = moment(new Date()).format('YYYY-MM-DD 00:00:00')
@@ -203,7 +206,7 @@ const BlogDashboard = () => {
                                 <div className="d-flex flex-column m-auto">
                                     <div className="stats-small__data text-center">
                                         <span className="stats-small__label text-uppercase">Comments</span>
-                                        <h6 className="stats-small__value count my-3">8,147</h6>
+                                        <h6 className="stats-small__value count my-3">87</h6>
                                     </div>
                                     <div className="stats-small__data">
                                         <span className="stats-small__percentage stats-small__percentage--decrease">3.8%</span>
@@ -229,7 +232,7 @@ const BlogDashboard = () => {
                                 <div className="d-flex flex-column m-auto">
                                     <div className="stats-small__data text-center">
                                         <span className="stats-small__label text-uppercase">Users</span>
-                                        <h6 className="stats-small__value count my-3">2,413</h6>
+                                        <h6 className="stats-small__value count my-3">{userNumber}</h6>
                                     </div>
                                     <div className="stats-small__data">
                                         <span className="stats-small__percentage stats-small__percentage--increase">12.4%</span>
@@ -239,7 +242,7 @@ const BlogDashboard = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg col-md-4 col-sm-12 mb-4">
+                    {/* <div className="col-lg col-md-4 col-sm-12 mb-4">
                         <div className="stats-small stats-small--1 card card-small">
                             <div className="card-body p-0 d-flex">
                                 <div className="chartjs-size-monitor" style={{ "position": "absolute", "inset": "0px", "overflow": "hidden", "pointerEvents": "none", "visibility": "hidden", "zIndex": "-1" }}>
@@ -264,7 +267,7 @@ const BlogDashboard = () => {
                                 <canvas height="95" className="blog-overview-stats-small-5 chartjs-render-monitor" width="240" style={{ "display": "block", "height": "76px", "width": "192px" }}></canvas>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-sm-12 mb-4">
