@@ -43,10 +43,12 @@ const NewCompanyProfile = () => {
     const { addToast } = useToasts();
     const [companyProfileData, setCompanyProfileData] = useState({description: '', active: false});
 
-    const [fileImage, setFileImage] = useState()
+    const [fileImage, setFileImage] = useState();
+    const [isFile, setIsFile] = useState(false);
 
     const callbackFunction = (childData) => {
-        setFileImage(childData)
+        setFileImage(childData);
+        setIsFile(true);
     }
 
     const handleSubmit = async (event) => {
@@ -54,7 +56,9 @@ const NewCompanyProfile = () => {
         try {
             callbackFunction();
             const formData = new FormData();
-            formData.append("image", fileImage);
+            if (fileImage && isFile) {
+                formData.append("image", fileImage);
+            }
             formData.append("name", companyProfileData.name);
             formData.append("website", companyProfileData.website);
             formData.append("active", companyProfileData.active);
@@ -116,7 +120,7 @@ const NewCompanyProfile = () => {
                                                     <div className="form-group col-md-6">
                                                         <label htmlFor="feInputActive">Active</label>
                                                         <select id="feInputActive" className="form-control" name='active' style={{ backgroundColor: '#fff', color: '#000' }}
-                                                            value={companyProfileData.active} onChange={(event) => setCompanyProfileData({ ...companyProfileData, [event.target.name]: event.target.value })}>
+                                                            value={companyProfileData.active ? companyProfileData.active : false} onChange={(event) => setCompanyProfileData({ ...companyProfileData, [event.target.name]: event.target.value })}>
                                                             <option value="true">Active</option>
                                                             <option value="false">Inactive</option>
                                                         </select>
